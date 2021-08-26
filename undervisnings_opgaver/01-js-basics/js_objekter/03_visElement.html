@@ -7,20 +7,20 @@
     <title>Document</title>
 </head>
 <body>
-    <article id="dyr_article">
+    <article>
        <h3></h3>
         <img src="" alt="">
-        <p>Type:  </p>
-        <p>Levested:  </p>
+        <p></p>
+        <p></p>
     </article>
 
     <script>
 
         document.addEventListener("DomContentLoaded", start);
 
-        function start(){
+        function start(){};
         
-    const dyr = {
+    let dyr = {
         navn: "Gris",
         type: "Pattedyr",
         billede: "http://mabe-kea.dk/E19/pics/pig.png",
@@ -30,13 +30,12 @@
     console.log(`navn:${dyr.navn}, type:${dyr.type}, billede:${dyr.billede}, levested:${dyr.levested}`);
 
 
-    const destination = document.querySelector("#dyr_article");
-    destination.querySelector("h3").textContent = dyr.navn;
+    let destination = document.querySelector("article");
     destination.querySelector("img").src = dyr.billede;
-    destination.querySelector("p").textContent = `${dyr.type}, ${dyr.levested}`;
+    destination.querySelector("h3").textContent = dyr.navn;
+    destination.querySelector("p").textContent = "Type: "+dyr.type;
+    destination.querySelector("p + p").textContent = "Levested: "+dyr.levested;
 
-    
-}
     
 
     </script>
