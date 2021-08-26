@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        section{
+            display: grid;
+            grid-template-columns: repeat( auto-fill, minmax(400px, 1fr));
+            gap: 10px;
+        }
+        article {
+            border: 1px solid #333;
+            padding: 10px;
+        }
+
+        img {
+            max-width: 30%;
+        }
+    </style> 
+
+</head>
+<body>
+    <section></section>
+    <template>
+<article>
+    <h3></h3>
+    <p class="model"></p>
+    <p class="motor"></p>
+    <p class="km"></p>
+    <p>Udstyr:</p>
+    <ul class="udstyr_liste"></ul>
+</article>
+
+
+    </template>
+
+
+    <script>
+
+            let container = document.querySelector("section");
+            let bilerTemplate = document.querySelector("template");
+
+            const fil ="alleBiler.json";
+            async function hentdata(fil) {
+                const result = await fetch(fil);
+                const json = await result.json();
+                vis(json);
+            }
+
+            function vis(json) {
+json.forEach(biler => {
+    const klon = bilerTemplate.cloneNode(true).content;
+    klon.querySelector("h3").textContent = biler.mærke;
+    klon.querySelector(".model").textContent = biler.model;
+    klon.querySelector(".motor").textContent = biler.motor;
+    klon.querySelector(".km").textContent = biler.km;
+    biler.udstyr.forEach(udstyr => {
+        klon.querySelector(".udstyr_liste").innerHTML += "<li>" + udstyr + "</li>";
+    })
+    container.appendChild(klon);
+})
+
+}
+hentdata(fil);
+           
+
+    </script>
+    
+</body>
+</html>

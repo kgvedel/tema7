@@ -1,0 +1,25 @@
+[
+
+    {"mærke": "Volvo",
+"model": "Amazon",
+"motor": "Benzin",
+"km": 500000,
+"udstyr": ["blinklys", "læderrat"]
+},
+
+{"mærke": "VW",
+    "model": "Polo",
+    "motor": "Diesel",
+    "km": 40500,
+    "udstyr": ["sædevarme", "gps"]
+    },
+
+    {"mærke": "Tesla",
+        "model": "S",
+        "motor": "El",
+        "km": 1000,
+        "udstyr": ["gps", "aircon", "soltag"]
+        }
+
+
+]
