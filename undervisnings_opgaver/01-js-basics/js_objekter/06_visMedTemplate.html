@@ -5,12 +5,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        section{
+            display: grid;
+            grid-template-columns: repeat( auto-fill, minmax(400px, 1fr));
+            gap: 10px;
+        }
+        article {
+            border: 1px solid #333;
+            padding: 10px;
+        }
+
+        img {
+            max-width: 30%;
+        }
+    </style> 
 </head>
 <body>
 
-    <section class="data-container"> </section>
+    <section>
+         </section>
+
     <template>
-   <article id="dyr">
+   <article>
        <h3></h3>
        <img src="" alt="">
        <p class="art"></p>
@@ -19,10 +36,8 @@
 </template>
 
 <script>
-
-        document.addEventListener("DomContentLoaded", start);
               
-    const dyr = [ {
+    const dyr = [{
         navn: "Gris",
         type: "pattedyr",
         billede: "http://mabe-kea.dk/E19/pics/pig.png",
@@ -50,24 +65,20 @@
         levested: "ved jeg sgu da ikke"
 
     },
-];
+]
 
-        function start(){
-            const container = document.querySelector(".data-container");
-            const dyrTemplate = document.querySelector("template");
-dyr.forEach((dyr) => {
+            let container = document.querySelector("section");
+            let dyrTemplate = document.querySelector("template");
+
+dyr.forEach(dyr => {
     let klon = dyrTemplate.cloneNode(true).content;
     klon.querySelector("h3").textContent = dyr.navn;
     klon.querySelector(".art").textContent = dyr.type;
     klon.querySelector(".sted").textContent = dyr.levested;
     klon.querySelector("img").src = dyr.billede;
     container.appendChild(klon);
-});
-        }
-
-    
-    
-    
+})
+        
     </script>
     
 </body>
