@@ -12,10 +12,13 @@
 
     <template>
         <article>
+            <h1>Persongalleri</h1>
             <img src="" alt="" class="billede">
-            <h2 class="navn"></h2>
+            <h2 class="fornavn"></h2>
+            <p class="email"></p>
+            <p class="hobby"></p>
             <p class="titel"></p>
-            <p class="fødselsdag"></p>
+            <p class="troende"></p>
 
         </article>
     </template>
@@ -45,10 +48,10 @@ function vis(json){
     console.log(json);
     json.forEach(person => {
         const klon = template.cloneNode(true);
-        klon.querySelector(".billede").src = medieurl + person.billede;
-        klon.querySelector(".navn").textContent = person.navn;
-        klon.querySelector(".titel").textContent = person.titel;
-        klon.querySelector(".fødselsdag").textContent = person.fødselsdag;
+        klon.querySelector(".billede").src = img + person.billede;
+        klon.querySelector(".navn").textContent = person.fornavn;
+        klon.querySelector(".titel").textContent = person.email;
+        klon.querySelector(".fødselsdag").textContent = person.hobby;
         main.appendChild(klon);
     });
 }
