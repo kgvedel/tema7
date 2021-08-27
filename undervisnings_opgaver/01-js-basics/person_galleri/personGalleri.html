@@ -5,18 +5,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Persongalleri</title>
+<style> 
+    main{
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+        gap: 20px;
+    }
+    article {
+        border: 1px solid #333;
+        padding: 10px;
+    }
+
+    img {
+        max-width: 60%;
+    }
+</style>
 </head>
 <body>
 
     <main></main>
 
     <template>
-        <article>
-            <h1>Persongalleri</h1>
+        <article>            
             <img src="" alt="" class="billede">
-            <h2 class="fornavn"></h2>
-            <p class="email"></p>
-            <p class="hobby"></p>
+            <h2 class="fornavn"> </h2>
+            <p class="email"> </p>
+            <p class="hobby">  </p>
             <p class="titel"></p>
             <p class="troende"></p>
 
@@ -40,18 +54,20 @@ async function hentData (){
 }
 
 const main = document.querySelector("main");
-const template = document.querySelector("template").content;
+const persontemplate = document.querySelector("template").content;
 
 
 
 function vis(json){
     console.log(json);
     json.forEach(person => {
-        const klon = template.cloneNode(true);
-        klon.querySelector(".billede").src = img + person.billede;
-        klon.querySelector(".navn").textContent = person.fornavn;
-        klon.querySelector(".titel").textContent = person.email;
-        klon.querySelector(".fødselsdag").textContent = person.hobby;
+        const klon = persontemplate.cloneNode(true);
+        klon.querySelector(".billede").src = "face/" + person.billede;
+        klon.querySelector(".fornavn").textContent = "Navn: " +  person.fornavn + " " + person.efternavn;
+        klon.querySelector(".email").textContent = " Email: " + person.email;
+        klon.querySelector(".hobby").textContent = "Hobby: " + person.hobby;
+        klon.querySelector(".titel").textContent = "Titel: " + person.titel;
+        klon.querySelector(".troende").textContent = "Troende?   " + person.troende;
         main.appendChild(klon);
     });
 }
