@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Persongalleri</title>
+</head>
+<body>
+
+    <main></main>
+
+    <template>
+        <article>
+            <img src="" alt="" class="billede">
+            <h2 class="navn"></h2>
+            <p class="titel"></p>
+            <p class="fødselsdag"></p>
+
+        </article>
+    </template>
+
+    <script>
+const url = "https://persongalleri-5d3e.restdb.io/rest/persongalleri";
+
+const option = {
+    headers: {
+        'x-apikey': "600fe9211346a1524ff12e31"
+    }
+};
+
+async function hentData (){
+    const resspons = await fetch(url, option);
+    const json = await resspons.json();
+    vis(json);
+    
+}
+
+const main = document.querySelector("main");
+const template = document.querySelector("template").content;
+
+
+
+function vis(json){
+    console.log(json);
+    json.forEach(person => {
+        const klon = template.cloneNode(true);
+        klon.querySelector(".billede").src = medieurl + person.billede;
+        klon.querySelector(".navn").textContent = person.navn;
+        klon.querySelector(".titel").textContent = person.titel;
+        klon.querySelector(".fødselsdag").textContent = person.fødselsdag;
+        main.appendChild(klon);
+    });
+}
+
+hentData();
+
+
+
+    </script>
+    
+</body>
+</html>
