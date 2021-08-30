@@ -45,8 +45,8 @@
 </head>
 <body>
     <nav>
-        <button data-troende= "alle">Alle</button>
-        <button data-troende= "ja" class="valgt">Troende</button>
+        <button data-troende= "alle" class="valgt">Alle</button>
+        <button data-troende= "ja">Troende</button>
         <button data-troende= "nej">Ikke troende</button>
         <button data-troende= "tvivler">Tvivler</button>
     </nav>
@@ -72,28 +72,40 @@ const option = {
         'x-apikey': "600fe9211346a1524ff12e31"
     }
 };
-let personer;
-let filter = "ja";
 
+
+let personer;
+let filter = "alle";
+const filterKnapper = document.querySelectorAll("nav button");
+filterKnapper.forEach(knap => knap.addEventListener("click", filtrerPersoner));
+hentData();
+
+
+function filtrerPersoner(){
+    filter = this.dataset.troende;
+
+    visPersoner();
+}
 
 async function hentData (){
     const resspons = await fetch(url, option);
 
     personer = await resspons.json();
     console.log("personer", personer);
-    vis(personer);
+    visPersoner();
+
     
 }
 
-const main = document.querySelector("main");
+
+
+function visPersoner(){
+    console.log(personer);
+    const main = document.querySelector("main");
 const persontemplate = document.querySelector("template").content;
-
-
-
-function vis(json){
-    console.log(json);
-    json.forEach(personer => {
-        if(filter == personer.troende) { 
+main.textContent = "";
+    personer.forEach(personer => {
+        if(filter == personer.troende || filter == "alle") { 
         const klon = persontemplate.cloneNode(true);
         klon.querySelector(".billede").src = "face/" + personer.billede;
         klon.querySelector(".fornavn").textContent = "Navn: " +  personer.fornavn + " " + personer.efternavn;
