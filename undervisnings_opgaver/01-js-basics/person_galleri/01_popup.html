@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Persongalleri</title>
+<style> 
+    main{
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+        gap: 20px;
+    }
+    article {
+        border: 1px solid #333;
+        padding: 10px;
+    }
+
+    img {
+        max-width: 60%;
+    }
+
+    nav{
+        display: flex;
+        justify-content: center;
+        margin: 10px;
+        gap: 30px;
+    }
+
+    button{
+        box-shadow: grey 2px 2px 2px;
+        border-radius: 10px;
+        padding: 15px;
+        border-style: solid;
+        background-color: rgb(238, 255, 0);
+        border-color: rgb(76, 0, 255);
+        color:black;
+    }
+    button.valgt{
+        background-color: rgb(76, 0, 255);
+        border-color:rgb(238, 255, 0) ;
+        color: rgb(238, 255, 0);
+    }
+
+    /*popup*/
+
+#popup{
+    
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    overflow: scroll;
+}
+
+#popup article {
+    width: 80vw;
+    display: flex;
+    margin: 4rem auto;
+    border-radius: 25px;
+    padding: 12px;
+    background-color: white;
+}
+
+#luk{
+    position: fixed;
+    padding: 1em;
+    font-size: 1.7em;
+    font-weight: bolder;
+    color: white;
+    cursor: pointer;
+}
+
+</style>
+</head>
+<body>
+    <header>
+    <h1>Alle</h1>
+    <nav>
+        <button data-troende= "alle" class="valgt">Alle</button>
+        <button data-troende= "ja">Troende</button>
+        <button data-troende= "nej">Ikke troende</button>
+        <button data-troende= "tvivler">Tvivler</button>
+    </nav>
+</header>
+
+
+    <main></main>
+
+    <section id="popup">
+        <div id="luk">&#2715</div>
+        <article>
+            <h2></h2>
+            <img src="" alt="">
+            <h3>Titel: <span class="titel"></span></h3>
+            <p>Email: <span class="email"></span></p>
+            <p>Fødselsdag: <span class="fdag"></span></p>
+            <p>Hobby: <span class="hobby"></span></p>
+            <p>Troende: <span class="tro"></span></p>
+        </article>
+    </section>
+
+    <template>
+        <article>            
+            <img src="" alt="" class="billede">
+            <h2 class="fornavn"> </h2>
+            <p class="email"> </p>
+            <p class="hobby">  </p>
+            <p class="titel"></p>
+            <p class="troende"></p>
+
+        </article>
+    </template>
+
+
+    <script>
+
+const url = "https://persongalleri-5d3e.restdb.io/rest/persongalleri";
+
+const option = {
+    headers: {
+        'x-apikey': "600fe9211346a1524ff12e31"
+    }
+};
+
+const headerOne = document.querySelector("header h1");
+let personer;
+let filter = "alle";
+const filterKnapper = document.querySelectorAll("nav button");
+filterKnapper.forEach(knap => knap.addEventListener("click", filtrerPersoner));
+hentData();
+
+
+function filtrerPersoner(){
+    filter = this.dataset.troende;
+    document.querySelector(".valgt").classList.remove("valgt");
+    this.classList.add("valgt");
+
+    visPersoner();
+    headerOne.textContent = this.textContent;
+    console.log(this);
+}
+
+async function hentData (){
+    const resspons = await fetch(url, option);
+    personer = await resspons.json();
+    console.log("personer", personer);
+    visPersoner();
+
+    
+}
+
+
+
+function visPersoner(){
+    console.log(personer);
+    const main = document.querySelector("main");
+const persontemplate = document.querySelector("template").content;
+main.textContent = "";
+    personer.forEach(personer => {
+        if(filter == personer.troende || filter == "alle") { 
+        const klon = persontemplate.cloneNode(true);
+        klon.querySelector(".billede").src = "face/" + personer.billede;
+        klon.querySelector(".fornavn").textContent = "Navn: " +  personer.fornavn + " " + personer.efternavn;
+        klon.querySelector(".email").textContent = " Email: " + personer.email;
+        klon.querySelector(".hobby").textContent = "Hobby: " + personer.hobby;
+        klon.querySelector(".titel").textContent = "Titel: " + personer.titel;
+        klon.querySelector(".troende").textContent = "Troende?   " + personer.troende;
+        main.appendChild(klon);
+    }
+    });
+}
+
+hentData();
+
+
+
+    </script>
+    
+</body>
+</html>
