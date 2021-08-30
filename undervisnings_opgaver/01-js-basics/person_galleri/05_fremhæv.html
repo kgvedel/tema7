@@ -97,7 +97,6 @@ function filtrerPersoner(){
 
 async function hentData (){
     const resspons = await fetch(url, option);
-
     personer = await resspons.json();
     console.log("personer", personer);
     visPersoner();
