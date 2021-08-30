@@ -44,12 +44,15 @@
 </style>
 </head>
 <body>
+    <header>
+    <h1>Alle</h1>
     <nav>
         <button data-troende= "alle" class="valgt">Alle</button>
         <button data-troende= "ja">Troende</button>
         <button data-troende= "nej">Ikke troende</button>
         <button data-troende= "tvivler">Tvivler</button>
     </nav>
+</header>
     <main></main>
 
     <template>
@@ -65,6 +68,7 @@
     </template>
 
     <script>
+
 const url = "https://persongalleri-5d3e.restdb.io/rest/persongalleri";
 
 const option = {
@@ -73,7 +77,7 @@ const option = {
     }
 };
 
-
+const headerOne = document.querySelector("header h1");
 let personer;
 let filter = "alle";
 const filterKnapper = document.querySelectorAll("nav button");
@@ -83,8 +87,11 @@ hentData();
 
 function filtrerPersoner(){
     filter = this.dataset.troende;
+   
 
     visPersoner();
+    headerOne.textContent = this.textContent;
+    console.log(this);
 }
 
 async function hentData (){
