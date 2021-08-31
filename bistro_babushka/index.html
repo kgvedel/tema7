@@ -87,6 +87,39 @@ button.valgt{
         color: rgb(216, 62, 24);
     
     }
+
+        /*popup*/
+
+#popup{
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(0, 0, 0, 0.8);
+    
+    overflow: scroll;
+}
+
+#popup article {
+    width: 80vw;
+    display: flex;
+    margin: 4rem auto;
+    border-radius: 25px;
+    padding: 12px;
+    background-color: white;
+}
+
+#luk{
+    position: fixed;
+    padding: 1em;
+    font-size: 1.7em;
+    font-weight: bolder;
+    color: white;
+    cursor: pointer;
+}
+
     </style>
 
 </head>
@@ -104,6 +137,17 @@ button.valgt{
     </nav>
 
     <section> </section>
+    <section id="popup">
+        <div id="luk">&#x2715</div>
+        <article>
+            <h2></h2>
+            <img src="" alt="" class="billede">
+            <p> <span class="navn"></span></p>
+            <p> <span class="beskrivelse"></span></p>
+            <p> <span class="pris"> kr</span></p>
+        </article>
+    </section>
+
     <template>
         <article>
             <img src="" alt="" class="billede">
@@ -158,11 +202,26 @@ section.textContent = "";
         klon.querySelector(".navn").textContent = ret.navn;
         klon.querySelector(".beskrivelse").textContent = ret.kortbeskrivelse;
         klon.querySelector(".pris").textContent =  ret.pris + "kr";
+        klon.querySelector("article").addEventListener("click", () => visDetaljer(ret));
        
         section.appendChild(klon);
     }
     });
 }
+
+function visDetaljer(ret){
+    console.log(ret);
+    const popup = document.querySelector("#popup");
+    popup.style.display = "block";
+    klon.querySelector(".billede").src = "medium/" + ret.billednavn + "-md.jpg";
+        klon.querySelector(".navn").textContent = ret.navn;
+        klon.querySelector(".beskrivelse").textContent = ret.kortbeskrivelse;
+        klon.querySelector(".pris").textContent =  ret.pris;
+    
+}
+
+document.querySelector("#luk").addEventListener("click", () => popup.style.display = "none");
+
 hentData();
 
 </script>
